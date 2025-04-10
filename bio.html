@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Esat</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      color: rgb(0, 0, 0);
+
+      /* ⭐ Hintergrundbild hier ändern */
+      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: 40px;
+      border: 3px solid rgb(0, 0, 0);
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: rgb(0, 0, 0);
+    }
+
+    .link-container {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .icon-link {
+      background: rgba(0, 0, 0, 0); /* Transparenter Hintergrund */
+      border: 2px solid black;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .icon-link:hover {
+      background: rgba(255, 255, 255, 0); /* Transparent beim Hover */
+      transform: scale(1.1);
+    }
+
+    .icon-link img {
+      width: 40px;
+      height: 40px;
+    }
+
+    /* 🎵 Custom Music Player */
+    .music-player {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0);
+      border: 2px solid rgb(0, 0, 0);
+      border-radius: 12px;
+      padding: 10px 20px;
+      margin-top: 40px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+      color: rgb(0, 0, 0);
+      backdrop-filter: blur(8px);
+    }
+
+    #playPauseBtn {
+      background: none;
+      border: 2px solid rgb(0, 0, 0);
+      color: rgb(0, 0, 0);
+      font-size: 18px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #playPauseBtn:hover {
+      background: rgba(255, 255, 255, 0);
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://cdn.discordapp.com/avatars/677396661957558283/05aab5d06f87460f69ff9399f7fd2838.png?size=512" alt="Profilbild" class="profile-pic" />
+  <h1>@esjt</h1>
+
+  <div class="link-container">
+    <!-- Spotify -->
+    <div class="icon-link" onclick="handleClick('https://open.spotify.com/user/db4qtxux4ykx9yp0xny5hbck7?si=ecdf6e73c2e04f50')">
+      <img src="https://images.icon-icons.com/2428/PNG/512/spotify_black_logo_icon_147079.png" alt="Spotify Logo"/>
+    </div>
+
+    <!-- Roblox -->
+    <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/1756865044/profile')">
+      <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
+    </div>
+
+    <!-- Discord -->
+    <div class="icon-link" onclick="handleClick('https://discordapp.com/users/677396661957558283')">
+      <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
+    </div>
+  </div>
+
+  <!-- 🎵 Custom Music Player -->
+  <div class="music-player">
+    <button id="playPauseBtn">⏸</button>
+    <span id="trackName">word vomit – jades</span>
+    <audio id="audio" autoplay>
+      <source src="https://www.dropbox.com/scl/fi/b383ktb8bd3xmslcjx2yn/wordvomit.mp3?rlkey=00uhm2fshwrorap8h6tofsejb&st=loczdu7s&raw=1" type="audio/mpeg" />
+      Dein Browser unterstützt kein Audio.
+    </audio>
+  </div>
+
+  <script>
+    function handleClick(url) {
+      window.open(url, '_blank');
+    }
+
+    // 🎧 Play/Pause Steuerung
+    const audio = document.getElementById("audio");
+    const btn = document.getElementById("playPauseBtn");
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸";
+      } else {
+        audio.pause();
+        btn.textContent = "⏵";
+      }
+    });
+  </script>
+</body>
+</html>
