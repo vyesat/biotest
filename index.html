@@ -4,67 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Esat</title>
-  <link rel="icon" href="https://cdn.discordapp.com/avatars/677396661957558283/05aab5d06f87460f69ff9399f7fd2838.png?size=512" />
-  <style>
-    * {
-      cursor: url("http://www.rw-designer.com/cursor-view/167794.png"), auto;
-    }
 
+  <!-- 🎯 Custom Cursor -->
+  <style>
     body {
+      cursor: url('http://www.rw-designer.com/cursor-view/167794.png'), auto;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       overflow: hidden;
-      text-align: center;
-      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: black;
+      background: black;
     }
 
     #overlay {
       position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(12px);
+      top: 0; left: 0; right: 0; bottom: 0;
+      backdrop-filter: blur(20px);
+      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      z-index: 10;
       transition: opacity 1s ease;
     }
 
     #overlay.hidden {
       opacity: 0;
       pointer-events: none;
-      backdrop-filter: blur(0px);
     }
 
-    #overlay h2 {
-      font-size: 32px;
+    #enterBtn {
+      padding: 14px 28px;
+      font-size: 20px;
+      border: 2px solid black;
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
       color: black;
+      border-radius: 12px;
+      cursor: pointer;
       animation: pulse 1.5s infinite;
+      transition: 0.3s ease;
+    }
+
+    #enterBtn:hover {
+      background-color: rgba(255, 255, 255, 0.9);
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.7; }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+    #content {
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 1.5s ease;
     }
 
-    .content.visible {
+    #content.visible {
       opacity: 1;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      filter: blur(0px);
     }
 
     .profile-pic {
@@ -74,15 +86,14 @@
       object-fit: cover;
       margin-top: 40px;
       border: 3px solid black;
-      animation: fadeIn 1s ease 0.5s forwards;
-      opacity: 0;
+      animation: fadeIn 2s ease forwards;
     }
 
     h1 {
       margin-top: 20px;
       color: black;
-      animation: fadeIn 1s ease 1s forwards;
-      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 0.5s;
     }
 
     .link-container {
@@ -91,8 +102,8 @@
       gap: 25px;
       margin-top: 40px;
       flex-wrap: wrap;
-      animation: fadeIn 1s ease 1.5s forwards;
-      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1s;
     }
 
     .icon-link {
@@ -109,6 +120,7 @@
     }
 
     .icon-link:hover {
+      background: rgba(255, 255, 255, 0);
       transform: scale(1.1);
     }
 
@@ -127,9 +139,10 @@
       padding: 10px 20px;
       margin-top: 40px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+      color: black;
       backdrop-filter: blur(8px);
-      opacity: 0;
-      animation: fadeIn 1s ease 2s forwards;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1.5s;
     }
 
     #playPauseBtn {
@@ -144,28 +157,29 @@
     }
 
     #playPauseBtn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0);
+      color: black;
     }
 
     #volumeSlider {
-      width: 100px;
       accent-color: black;
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
+  <!-- Overlay -->
   <div id="overlay">
-    <h2>Click to enter</h2>
+    <button id="enterBtn">Click to Enter</button>
   </div>
 
-  <div class="content" id="mainContent">
+  <!-- Content -->
+  <div id="content">
     <img src="https://cdn.discordapp.com/avatars/677396661957558283/05aab5d06f87460f69ff9399f7fd2838.png?size=512" alt="Profilbild" class="profile-pic" />
     <h1>@esjt</h1>
 
@@ -181,10 +195,11 @@
       </div>
     </div>
 
+    <!-- 🎵 Music Player -->
     <div class="music-player">
       <button id="playPauseBtn">⏸</button>
       <span id="trackName">suffice - worm</span>
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1">
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
       <audio id="audio">
         <source src="https://www.dropbox.com/scl/fi/r0varuv6cxt8um8b7e59j/suffice.mp3?rlkey=fjwldpr0ac4smw1rt7uyuwawx&st=3l1gzv9u&dl=1" type="audio/mpeg" />
         Your browser does not support audio.
@@ -193,17 +208,24 @@
   </div>
 
   <script>
+    function handleClick(url) {
+      window.open(url, '_blank');
+    }
+
     const overlay = document.getElementById("overlay");
-    const content = document.getElementById("mainContent");
+    const content = document.getElementById("content");
     const audio = document.getElementById("audio");
     const playPauseBtn = document.getElementById("playPauseBtn");
+    const enterBtn = document.getElementById("enterBtn");
     const volumeSlider = document.getElementById("volumeSlider");
 
-    overlay.addEventListener("click", () => {
+    enterBtn.addEventListener("click", () => {
       overlay.classList.add("hidden");
       content.classList.add("visible");
-      audio.play().catch(err => {
-        console.warn("Autoplay blockiert:", err);
+      audio.play().then(() => {
+        playPauseBtn.textContent = "⏸";
+      }).catch(err => {
+        console.warn("Fehler beim Starten des Audios:", err);
       });
     });
 
@@ -220,11 +242,8 @@
     volumeSlider.addEventListener("input", () => {
       audio.volume = volumeSlider.value;
     });
-
-    function handleClick(url) {
-      window.open(url, "_blank");
-    }
   </script>
 </body>
 </html>
+
 
