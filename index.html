@@ -3,80 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Esat</title>
+  <title>kyno</title>
 
-  <!-- 🎯 Custom Cursor -->
   <style>
-    body {
-      cursor: url('http://www.rw-designer.com/cursor-view/167794.png'), auto;
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      color: black;
+      cursor: url('http://www.rw-designer.com/cursor-view/167794.png'), auto;
       overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       background: black;
+    }
+
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
     }
 
     #overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      backdrop-filter: blur(20px);
-      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      inset: 0;
+      backdrop-filter: blur(18px);
+      background-color: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 10;
+      z-index: 1000;
       transition: opacity 1s ease;
     }
 
-    #overlay.hidden {
+    #overlay.fade-out {
       opacity: 0;
       pointer-events: none;
     }
 
-    #enterBtn {
-      padding: 14px 28px;
-      font-size: 20px;
-      border: 2px solid black;
-      background-color: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
+    #overlayText {
+      font-size: 32px;
       color: black;
-      border-radius: 12px;
-      cursor: pointer;
-      animation: pulse 1.5s infinite;
-      transition: 0.3s ease;
+      font-weight: bold;
+      animation: fadeInText 1s ease-in-out;
     }
 
-    #enterBtn:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    @keyframes fadeInText {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     #content {
       opacity: 0;
       transition: opacity 1.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 90vw;
+      z-index: 2;
     }
 
     #content.visible {
       opacity: 1;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
-      filter: blur(0px);
     }
 
     .profile-pic {
@@ -85,25 +88,23 @@
       border-radius: 50%;
       object-fit: cover;
       margin-top: 40px;
-      border: 3px solid black;
-      animation: fadeIn 2s ease forwards;
+      border: 3px solid rgb(0, 0, 0);
+      animation: fadeIn 1s ease forwards;
     }
 
     h1 {
       margin-top: 20px;
-      color: black;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 0.5s;
+      color: rgb(0, 0, 0);
+      animation: fadeIn 1.2s ease forwards;
     }
 
     .link-container {
       display: flex;
       justify-content: center;
-      gap: 25px;
+      gap: 40px;
       margin-top: 40px;
       flex-wrap: wrap;
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 1s;
+      animation: fadeIn 1.4s ease forwards;
     }
 
     .icon-link {
@@ -119,6 +120,7 @@
       cursor: pointer;
     }
 
+
     .icon-link:hover {
       background: rgba(255, 255, 255, 0);
       transform: scale(1.1);
@@ -133,22 +135,20 @@
       display: flex;
       align-items: center;
       gap: 15px;
-      background: rgba(255, 255, 255, 0);
-      border: 2px solid black;
+      background: rgba(0, 0, 0, 0);
+      border: 2px solid rgb(0, 0, 0);
       border-radius: 12px;
       padding: 10px 20px;
       margin-top: 40px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-      color: black;
-      backdrop-filter: blur(8px);
-      animation: fadeIn 2s ease forwards;
-      animation-delay: 1.5s;
+      color: rgb(0, 0, 0);
+      animation: fadeIn 1.6s ease forwards;
     }
 
     #playPauseBtn {
       background: none;
-      border: 2px solid black;
-      color: black;
+      border: 2px solid rgb(0, 0, 0);
+      color: rgb(0, 0, 0);
       font-size: 18px;
       padding: 8px 12px;
       border-radius: 8px;
@@ -162,45 +162,62 @@
     }
 
     #volumeSlider {
-      accent-color: black;
+      appearance: none;
+      width: 100px;
+      height: 5px;
+      background: black;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    #volumeSlider::-webkit-slider-thumb {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      background: rgb(255, 255, 255);
+      border-radius: 50%;
+      cursor: pointer;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Overlay -->
-  <div id="overlay">
-    <button id="enterBtn">Click to Enter</button>
+  <video autoplay muted loop playsinline id="backgroundVideo">
+    <source src="https://cdn.discordapp.com/attachments/1359042936775512226/1361089982843846706/7oUirTB.mp4?ex=67fd7d53&is=67fc2bd3&hm=3eb1f787f79f3859f9dfd2bf2d0bef0430fd998573ad18a11d727fe6ebf7e69d&" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <div id="overlay" onclick="enterSite()">
+    <div id="overlayText">Click to Enter</div>
   </div>
 
-  <!-- Content -->
   <div id="content">
-    <img src="https://cdn.discordapp.com/avatars/677396661957558283/05aab5d06f87460f69ff9399f7fd2838.png?size=512" alt="Profilbild" class="profile-pic" />
-    <h1>@esjt</h1>
+    <img src="https://cdn.discordapp.com/attachments/1359042936775512226/1361095933986603119/NQLuXMO.jpeg?ex=67fd82de&is=67fc315e&hm=b60e7456f1975afb65e1e89bc999e485fa519e6afdfba0632398c88e5cc074f4&" alt="Profilbild" class="profile-pic" />
+    <h1>@pfus</h1>
 
     <div class="link-container">
-      <div class="icon-link" onclick="handleClick('https://open.spotify.com/user/db4qtxux4ykx9yp0xny5hbck7?si=ecdf6e73c2e04f50')">
-        <img src="https://images.icon-icons.com/2428/PNG/512/spotify_black_logo_icon_147079.png" alt="Spotify Logo"/>
+        <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/4937339051/profile')">
+          <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
+        </div>
+        <div class="icon-link" onclick="handleClick('https://discordapp.com/users/1352604267206148106')">
+          <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
+        </div>
+        <div class="icon-link" onclick="handleClick('https://www.instagram.com/salihqo/')">
+          <img src="https://cdn.discordapp.com/attachments/1260017810864734240/1361102019309338685/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTEwMy1wLnBuZw-removebg-preview.png?ex=67fd8889&is=67fc3709&hm=b2dc7dd52c6d5b4a00914bdea944d67a54f3bc148470904aedfdd1d7584a6ab7&" alt="Instagram Logo"/>
+        </div>
       </div>
-      <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/1756865044/profile')">
-        <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
-      </div>
-      <div class="icon-link" onclick="handleClick('https://discordapp.com/users/677396661957558283')">
-        <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
-      </div>
-    </div>
 
-    <!-- 🎵 Music Player -->
     <div class="music-player">
       <button id="playPauseBtn">⏸</button>
       <span id="trackName">suffice - worm</span>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
-      <audio id="audio">
+      <audio id="audio" loop>
         <source src="https://www.dropbox.com/scl/fi/r0varuv6cxt8um8b7e59j/suffice.mp3?rlkey=fjwldpr0ac4smw1rt7uyuwawx&st=3l1gzv9u&dl=1" type="audio/mpeg" />
         Your browser does not support audio.
       </audio>
@@ -208,42 +225,34 @@
   </div>
 
   <script>
-    function handleClick(url) {
-      window.open(url, '_blank');
+   const audio = document.getElementById("audio");
+const btn = document.getElementById("playPauseBtn");
+
+// Play/Pause button
+btn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play().catch(e => {
+      console.log("Autoplay blockiert:", e);
+    });
+    btn.textContent = "⏸"; // Update button text to pause symbol
+  } else {
+    audio.pause();
+    btn.textContent = "⏵"; // Update button text to play symbol
+  }
+});
+
+// Set volume and handle interaction
+volumeSlider.addEventListener("input", () => {
+  audio.volume = volumeSlider.value;
+});
+
+
+    function enterSite() {
+      document.getElementById("overlay").classList.add("fade-out");
+      document.getElementById("content").classList.add("visible");
+      audio.play().catch(e => console.log("Autoplay blocked:", e));
     }
-
-    const overlay = document.getElementById("overlay");
-    const content = document.getElementById("content");
-    const audio = document.getElementById("audio");
-    const playPauseBtn = document.getElementById("playPauseBtn");
-    const enterBtn = document.getElementById("enterBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
-
-    enterBtn.addEventListener("click", () => {
-      overlay.classList.add("hidden");
-      content.classList.add("visible");
-      audio.play().then(() => {
-        playPauseBtn.textContent = "⏸";
-      }).catch(err => {
-        console.warn("Fehler beim Starten des Audios:", err);
-      });
-    });
-
-    playPauseBtn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        playPauseBtn.textContent = "⏸";
-      } else {
-        audio.pause();
-        playPauseBtn.textContent = "⏵";
-      }
-    });
-
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
-    });
   </script>
 </body>
 </html>
-
 
