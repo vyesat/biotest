@@ -3,41 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>kyno</title>
-
+  <title>Esat</title>
   <style>
-    * {
+    body {
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: #000;
+      color: #000;
     }
 
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      color: black;
-      cursor: url('http://www.rw-designer.com/cursor-view/167794.png'), auto;
-      overflow: hidden;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: black;
-    }
-
-    #backgroundVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-    }
-
+    /* Common styles */
     #overlay {
       position: fixed;
       inset: 0;
@@ -46,7 +22,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 9999;
       transition: opacity 1s ease;
     }
 
@@ -67,44 +43,20 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    #content {
-      opacity: 0;
-      transition: opacity 1.5s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      max-width: 90vw;
-      z-index: 2;
-    }
-
-    #content.visible {
-      opacity: 1;
-    }
-
     .profile-pic {
-      width: 120px;
-      height: 120px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       object-fit: cover;
       margin-top: 40px;
-      border: 3px solid rgb(0, 0, 0);
-      animation: fadeIn 1s ease forwards;
-    }
-
-    h1 {
-      margin-top: 20px;
-      color: rgb(0, 0, 0);
-      animation: fadeIn 1.2s ease forwards;
     }
 
     .link-container {
       display: flex;
       justify-content: center;
-      gap: 40px;
+      gap: 25px;
       margin-top: 40px;
       flex-wrap: wrap;
-      animation: fadeIn 1.4s ease forwards;
     }
 
     .icon-link {
@@ -120,9 +72,7 @@
       cursor: pointer;
     }
 
-
     .icon-link:hover {
-      background: rgba(255, 255, 255, 0);
       transform: scale(1.1);
     }
 
@@ -135,14 +85,11 @@
       display: flex;
       align-items: center;
       gap: 15px;
-      background: rgba(0, 0, 0, 0);
       border: 2px solid rgb(0, 0, 0);
       border-radius: 12px;
       padding: 10px 20px;
       margin-top: 40px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-      color: rgb(0, 0, 0);
-      animation: fadeIn 1.6s ease forwards;
     }
 
     #playPauseBtn {
@@ -153,12 +100,6 @@
       padding: 8px 12px;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    #playPauseBtn:hover {
-      background: rgba(255, 255, 255, 0);
-      color: black;
     }
 
     #volumeSlider {
@@ -175,83 +116,157 @@
       appearance: none;
       width: 12px;
       height: 12px;
-      background: rgb(255, 255, 255);
+      background: white;
       border-radius: 50%;
-      cursor: pointer;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Mobile only */
+    .mobile-only {
+      display: none;
+    }
+
+    /* Desktop only */
+    .desktop-only {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-only {
+        display: block;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .desktop-only {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-image: url('https://images-ext-1.discordapp.net/external/H-2ajl8D7osNbZaffvDXggaBdEOsK6qZrpH8SJIavQY/%3Fsize%3D4096/https/cdn.discordapp.com/banners/677396661957558283/fa58279d962b81b00f8f751f72545fbc.png?format=webp&quality=lossless');
+        background-size: cover;
+        background-position: center;
+      }
+
+      .glass-box {
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 40px;
+        transition: transform 0.2s ease;
+        will-change: transform;
+        perspective: 1000px;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+      }
     }
   </style>
 </head>
 <body>
 
-  <video autoplay muted loop playsinline id="backgroundVideo">
-    <source src="background.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>
-
+<!-- Mobile Layout -->
+<div class="mobile-only">
   <div id="overlay" onclick="enterSite()">
-    <div id="overlayText">Click to Enter</div>
+    <div id="overlayText">click to enter</div>
   </div>
 
-  <div id="content">
-    <img src="https://cdn.discordapp.com/attachments/1359042936775512226/1361095933986603119/NQLuXMO.jpeg?ex=67fd82de&is=67fc315e&hm=b60e7456f1975afb65e1e89bc999e485fa519e6afdfba0632398c88e5cc074f4&" alt="Profilbild" class="profile-pic" />
-    <h1>@pfus</h1>
+  <div id="content" style="text-align: center;">
+    <img src="https://cdn.discordapp.com/attachments/1236748388846932099/1362129201796349972/discord_fake_avatar_decorations_1744827333754.gif" alt="Profilbild" class="profile-pic" />
+    <h1>@esjt</h1>
 
     <div class="link-container">
-        <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/4937339051/profile')">
-          <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
-        </div>
-        <div class="icon-link" onclick="handleClick('https://discordapp.com/users/1352604267206148106')">
-          <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
-        </div>
-        <div class="icon-link" onclick="handleClick('https://www.instagram.com/salihqo/')">
-          <img src="https://cdn.discordapp.com/attachments/1260017810864734240/1361102019309338685/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTEwMy1wLnBuZw-removebg-preview.png?ex=67fd8889&is=67fc3709&hm=b2dc7dd52c6d5b4a00914bdea944d67a54f3bc148470904aedfdd1d7584a6ab7&" alt="Instagram Logo"/>
-        </div>
+      <div class="icon-link" onclick="handleClick('https://open.spotify.com/user/db4qtxux4ykx9yp0xny5hbck7?si=ecdf6e73c2e04f50')">
+        <img src="https://images.icon-icons.com/2428/PNG/512/spotify_black_logo_icon_147079.png" alt="Spotify Logo"/>
       </div>
+      <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/1756865044/profile')">
+        <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
+      </div>
+      <div class="icon-link" onclick="handleClick('https://discordapp.com/users/677396661957558283')">
+        <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
+      </div>
+    </div>
 
     <div class="music-player">
       <button id="playPauseBtn">⏸</button>
       <span id="trackName">suffice - worm</span>
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
       <audio id="audio" loop>
-       <source src="suffice.mp3" type="audio/mpeg">
-        Your browser does not support audio.
+        <source src="suffice.mp3" type="audio/mpeg">
       </audio>
     </div>
   </div>
+</div>
 
-  <script>
-    const audio = document.getElementById("audio");
-    const btn = document.getElementById("playPauseBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
+<!-- Desktop Layout -->
+<div class="desktop-only">
+  <div class="glass-box" id="glassBox">
+    <img src="https://cdn.discordapp.com/attachments/1236748388846932099/1362129201796349972/discord_fake_avatar_decorations_1744827333754.gif" alt="Profilbild" class="profile-pic" />
+    <h1>@esjt</h1>
 
-    function handleClick(url) {
-      window.open(url, '_blank');
+    <div class="link-container">
+      <div class="icon-link" onclick="handleClick('https://open.spotify.com/user/db4qtxux4ykx9yp0xny5hbck7?si=ecdf6e73c2e04f50')">
+        <img src="https://images.icon-icons.com/2428/PNG/512/spotify_black_logo_icon_147079.png" alt="Spotify Logo"/>
+      </div>
+      <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/1756865044/profile')">
+        <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
+      </div>
+      <div class="icon-link" onclick="handleClick('https://discordapp.com/users/677396661957558283')">
+        <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
+      </div>
+    </div>
+
+    <div class="music-player">
+      <button id="playPauseBtn">⏸</button>
+      <span id="trackName">suffice - worm</span>
+      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
+      <audio id="audio" loop>
+        <source src="suffice.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+</div>
+
+<script>
+  const audio = document.getElementById("audio");
+  const btn = document.getElementById("playPauseBtn");
+  const volumeSlider = document.getElementById("volumeSlider");
+  const glassBox = document.getElementById("glassBox");
+
+  function handleClick(url) {
+    window.open(url, '_blank');
+  }
+
+  btn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = "⏸";
+    } else {
+      audio.pause();
+      btn.textContent = "⏵";
     }
+  });
 
-    btn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = "⏸";
-      } else {
-        audio.pause();
-        btn.textContent = "⏵";
-      }
+  volumeSlider.addEventListener("input", () => {
+    audio.volume = volumeSlider.value;
+  });
+
+  function enterSite() {
+    document.getElementById("overlay").classList.add("fade-out");
+    document.getElementById("content")?.classList.add("visible");
+    audio.play();
+  }
+
+  if (glassBox) {
+    document.addEventListener("mousemove", (e) => {
+      const { innerWidth, innerHeight } = window;
+      const rotateX = (e.clientY / innerHeight - 0.5) * 30;
+      const rotateY = (e.clientX / innerWidth - 0.5) * -30;
+      glassBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
+    document.addEventListener("mouseleave", () => {
+      glassBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
     });
+  }
+</script>
 
-    function enterSite() {
-      document.getElementById("overlay").classList.add("fade-out");
-      document.getElementById("content").classList.add("visible");
-      audio.play().catch(e => console.log("Autoplay blocked:", e));
-    }
-  </script>
 </body>
 </html>
