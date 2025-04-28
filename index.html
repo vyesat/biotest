@@ -4,16 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Esat</title>
+
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #000;
-      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      color: rgb(0, 0, 0);
+      background-image: url('https://cdn.discordapp.com/attachments/1203657575321698328/1366472145697374370/IMG_2574.jpg?ex=681111db&is=680fc05b&hm=2ba9acfa164907aace7cf9c616ba052741c1735ebc24cff11644fb521f0c271c&');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
     }
 
-    /* Common styles */
     #overlay {
       position: fixed;
       inset: 0;
@@ -43,12 +59,45 @@
       to { opacity: 1; transform: scale(1); }
     }
 
+    #content {
+      opacity: 0;
+      transition: opacity 1.5s ease, backdrop-filter 1s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: 90vw;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 32px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 80px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transform: perspective(800px);
+    }
+
+    #content.visible {
+      opacity: 1;
+    }
+
+    #content:hover {
+      transform: perspective(800px) rotateY(15deg) rotateX(15deg); 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
     .profile-pic {
       width: 160px;
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
       margin-top: 40px;
+      border: 0px solid rgb(0, 0, 0);
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: rgb(0, 0, 0);
     }
 
     .link-container {
@@ -73,6 +122,7 @@
     }
 
     .icon-link:hover {
+      background: rgba(255, 255, 255, 0);
       transform: scale(1.1);
     }
 
@@ -85,11 +135,13 @@
       display: flex;
       align-items: center;
       gap: 15px;
+      background: rgba(255, 255, 255, 0);
       border: 2px solid rgb(0, 0, 0);
       border-radius: 12px;
       padding: 10px 20px;
       margin-top: 40px;
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+      color: rgb(0, 0, 0);
     }
 
     #playPauseBtn {
@@ -100,6 +152,12 @@
       padding: 8px 12px;
       border-radius: 8px;
       cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #playPauseBtn:hover {
+      background: rgba(255, 255, 255, 0);
+      color: black;
     }
 
     #volumeSlider {
@@ -116,59 +174,19 @@
       appearance: none;
       width: 12px;
       height: 12px;
-      background: white;
+      background: rgb(255, 255, 255);
       border-radius: 50%;
-    }
-
-    /* Mobile only */
-    .mobile-only {
-      display: none;
-    }
-
-    /* Desktop only */
-    .desktop-only {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .mobile-only {
-        display: block;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .desktop-only {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background-image: url('https://cdn.discordapp.com/attachments/1203657575321698328/1366472145697374370/IMG_2574.jpg?ex=681111db&is=680fc05b&hm=2ba9acfa164907aace7cf9c616ba052741c1735ebc24cff11644fb521f0c271c&');
-        background-size: cover;
-        background-position: center;
-      }
-
-      .glass-box {
-        backdrop-filter: blur(14px);
-        background-color: rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 40px;
-        transition: transform 0.2s ease;
-        will-change: transform;
-        perspective: 1000px;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
-      }
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-<!-- Mobile Layout -->
-<div class="mobile-only">
   <div id="overlay" onclick="enterSite()">
     <div id="overlayText">click to enter</div>
   </div>
 
-  <div id="content" style="text-align: center;">
+  <div id="content">
     <img src="https://cdn.discordapp.com/attachments/1354247629688537210/1366462431634788484/D3821DE0-A4A7-40B7-96D9-DA963965DA62.jpg?ex=681108cf&is=680fb74f&hm=9b1f4963cc816c12e895c117598af2bb5f9ed6d419ffd1c45ce809f20950235b&" alt="Profilbild" class="profile-pic" />
     <h1>@m1nimoe</h1>
 
@@ -190,83 +208,58 @@
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
       <audio id="audio" loop>
         <source src="suffice.mp3" type="audio/mpeg">
+        Your browser does not support audio.
       </audio>
     </div>
   </div>
-</div>
 
-<!-- Desktop Layout -->
-<div class="desktop-only">
-  <div class="glass-box" id="glassBox">
-    <img src="https://cdn.discordapp.com/attachments/1236748388846932099/1362129201796349972/discord_fake_avatar_decorations_1744827333754.gif" alt="Profilbild" class="profile-pic" />
-    <h1>@esjt</h1>
+  <script>
+    const audio = document.getElementById("audio");
+    const btn = document.getElementById("playPauseBtn");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const content = document.getElementById("content");
 
-    <div class="link-container">
-      <div class="icon-link" onclick="handleClick('https://open.spotify.com/user/db4qtxux4ykx9yp0xny5hbck7?si=ecdf6e73c2e04f50')">
-        <img src="https://images.icon-icons.com/2428/PNG/512/spotify_black_logo_icon_147079.png" alt="Spotify Logo"/>
-      </div>
-      <div class="icon-link" onclick="handleClick('https://www.roblox.com/users/1756865044/profile')">
-        <img src="https://devforum-uploads.s3.dualstack.us-east-2.amazonaws.com/uploads/original/4X/0/e/e/0eeeb19633422b1241f4306419a0f15f39d58de9.png" alt="Roblox Logo"/>
-      </div>
-      <div class="icon-link" onclick="handleClick('https://discordapp.com/users/677396661957558283')">
-        <img src="https://www.freeiconspng.com/uploads/discord-black-icon-1.png" alt="Discord Logo"/>
-      </div>
-    </div>
-
-    <div class="music-player">
-      <button id="playPauseBtn">⏸</button>
-      <span id="trackName">suffice - worm</span>
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" />
-      <audio id="audio" loop>
-        <source src="suffice.mp3" type="audio/mpeg">
-      </audio>
-    </div>
-  </div>
-</div>
-
-<script>
-  const audio = document.getElementById("audio");
-  const btn = document.getElementById("playPauseBtn");
-  const volumeSlider = document.getElementById("volumeSlider");
-  const glassBox = document.getElementById("glassBox");
-
-  function handleClick(url) {
-    window.open(url, '_blank');
-  }
-
-  btn.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play();
-      btn.textContent = "⏸";
-    } else {
-      audio.pause();
-      btn.textContent = "⏵";
+    function handleClick(url) {
+      window.open(url, '_blank');
     }
-  });
 
-  volumeSlider.addEventListener("input", () => {
-    audio.volume = volumeSlider.value;
-  });
-
-  function enterSite() {
-    document.getElementById("overlay").classList.add("fade-out");
-    document.getElementById("content")?.classList.add("visible");
-    audio.play();
-  }
-
-  if (glassBox) {
-    document.addEventListener("mousemove", (e) => {
-      const { innerWidth, innerHeight } = window;
-      const rotateX = (e.clientY / innerHeight - 0.5) * 30;
-      const rotateY = (e.clientX / innerWidth - 0.5) * -30;
-      glassBox.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    btn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸";
+      } else {
+        audio.pause();
+        btn.textContent = "⏵";
+      }
     });
 
-    document.addEventListener("mouseleave", () => {
-      glassBox.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
     });
-  }
-</script>
 
+    function enterSite() {
+      document.getElementById("overlay").classList.add("fade-out");
+      document.getElementById("content").classList.add("visible");
+      audio.play();
+    }
+
+    // Mousemove event for direct 3D effect
+    content.addEventListener("mousemove", (e) => {
+      const { clientX: x, clientY: y } = e;
+      const { width, height, left, top } = content.getBoundingClientRect();
+
+      // Calculate direct mouse movement offsets
+      const newXOffset = ((x - left) / width - 0.4) * 15; 
+      const newYOffset = ((y - top) / height - 0.4) * 15; 
+
+      // Apply direct 3D transformation
+      content.style.transform = `perspective(800px) rotateY(${newXOffset}deg) rotateX(${newYOffset}deg)`;
+    });
+
+    // Reset the 3D effect when the mouse leaves the box
+    content.addEventListener("mouseleave", () => {
+      content.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg)";
+    });
+  </script>
 </body>
 </html>
